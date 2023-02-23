@@ -21,7 +21,7 @@ const employeeSlice = createSlice({
     }),
     builder.addCase(fetchEmployees.fulfilled,(state,action)=>{
       state.isLoading = false;
-      state.data.push(action.payload);
+      state.data = action.payload;
     }),
     builder.addCase(addEmployee.pending,(state,action)=>{
       state.isLoading = true;
@@ -29,6 +29,7 @@ const employeeSlice = createSlice({
     builder.addCase(addEmployee.fulfilled,(state,action)=>{
       state.isLoading = false;
       state.data.push(action.data);
+      console.log(state.data,"state")
     }),
     builder.addCase(addEmployee.rejected,(state,action)=>{
       state.isLoading = false;

@@ -8,8 +8,6 @@ const store = configureStore({
 })
 
 
-
-
 export {store}
 export * from './thunks/fetchEmployees';
 export * from './thunks/addEmployee';
