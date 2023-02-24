@@ -51,8 +51,12 @@ const employeeSlice = createSlice({
     }),
     builder.addCase(editEmployee.fulfilled,(state,action)=>{
       state.isLoading = false;
-      state.data = state.data.map((emp) => {
-        console.log(emp,action)
+      state.data = state.data.map(emp => {
+        if(emp.id !== action.payload.id){
+          return emp
+        }else{
+          return action.payload
+        }
       })
     }),
     builder.addCase(editEmployee.rejected,(state,action)=>{
