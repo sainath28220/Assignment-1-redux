@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from './Button';
 import { editEmployee } from '../store'
+import { removeEmployee } from '../store'
 
 
 const EditEmployee = (props) => {
@@ -30,7 +31,7 @@ const EditEmployee = (props) => {
     <h2>{props.emp.code}</h2>
     <h2>{props.emp.name}</h2>
     <h2>{props.emp.department}</h2>
-    <Button onClick={() => handleDelete(emp)}>Delete</Button>
+    <Button onClick={() => handleDelete(props.emp)}>Delete</Button>
     <Button onClick={() => manageEdit()}>Edit</Button>
   </>
   }else{
