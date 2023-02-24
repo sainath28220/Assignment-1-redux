@@ -1,8 +1,10 @@
 import { useEffect,useState } from 'react';
 import { fetchEmployees,addEmployee } from '../store';
-import { useDispatch,useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import Button from './Button';
 import { useThunk } from '../hooks/use-thunk';
-import Button from './Button'
+import SearchEmployee from './SearchEmployee';
+import FilteredList from './FilteredList';
 
 const EmployeeForm = () => {
   const [ doFetchEmployees, isLoadingEmployees, loadingEmployeesError ] = useThunk(fetchEmployees);
@@ -21,31 +23,13 @@ const EmployeeForm = () => {
   };
 
   
-const fetchEmployeesList = () => {
-  doFetchEmployees();
-};
+  const fetchEmployeesList = () => {
+    doFetchEmployees();
+  };
   
   const handleUser = () => {
     setShowForm(prevShow => !prevShow)
   }
-
-  const { data } = useSelector((state) => {
-    return state.employees
-  });
-
-  const renderEmployees = data.map(emp=>{
-    return(
-      <div className="mb-2 border rounded" key={emp.id}>
-        <div className="flex p-2 justify-between items-center">
-          <div className="flex flex-row item-center justify-between">
-            <button>Delete</button>
-            <div>{emp.id}</div>
-          </div>
-        </div>
-      </div>
-    )
-  })
-
 
 
   return(<div>
@@ -75,13 +59,17 @@ const fetchEmployeesList = () => {
         <button type='submit'>Submit</button>
       </form>
     </div>
+    <div className='border-4 border-indigo-500/50 p-2 mt-6'>
+      <SearchEmployee />
+    </div>
     <div>
-      <div className="flex flex-row justify-between items-center m-3">
-        <h1 className="m-2 text-xl">EmployeeID</h1>
-        <h1 className="m-2 text-xl">Employee Name</h1>
-        <h1 className="m-2 text-xl">Employee Department</h1>
-        <Button loading={isLoadingEmployees} onClick={fetchEmployeesList}>Show Employees</Button>
-      </div>
+        <div className="flex flex-row justify-between items-center m-3">
+          <h1 className="m-2 text-xl">EmployeeID</h1>
+          <h1 className="m-2 text-xl">Employee Name</h1>
+          <h1 className="m-2 text-xl">Employee Department</h1>
+          <Button loading={isLoadingEmployees} onClick={fetchEmployeesList}>Show Employees</Button>
+        </div>
+        <FilteredList />
     </div>
   </div>
   )

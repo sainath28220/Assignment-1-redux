@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchEmployees } from '../thunks/fetchEmployees';
 import { addEmployee } from '../thunks/addEmployee';
 import { removeEmployee } from '../thunks/removeEmployee';
+import { editEmployee } from '../thunks/editEmployee';
 
 
 const employeeSlice = createSlice({
@@ -29,7 +30,6 @@ const employeeSlice = createSlice({
     builder.addCase(addEmployee.fulfilled,(state,action)=>{
       state.isLoading = false;
       state.data.push(action.data);
-      console.log(state.data,"state")
     }),
     builder.addCase(addEmployee.rejected,(state,action)=>{
       state.isLoading = false;
@@ -43,6 +43,19 @@ const employeeSlice = createSlice({
       state.data = state.data.filter(employee => employee.id !== action.payload.id);
     }),
     builder.addCase(removeEmployee.rejected,(state,action)=>{
+      state.isLoading = false;
+      state.error = action.error;
+    }),
+    builder.addCase(editEmployee.pending,(state,action)=>{
+      state.isLoading = true;
+    }),
+    builder.addCase(editEmployee.fulfilled,(state,action)=>{
+      state.isLoading = false;
+      state.data = state.data.map((emp) => {
+        console.log(emp,action)
+      })
+    }),
+    builder.addCase(editEmployee.rejected,(state,action)=>{
       state.isLoading = false;
       state.error = action.error;
     })
