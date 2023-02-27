@@ -29,7 +29,7 @@ const employeeSlice = createSlice({
     }),
     builder.addCase(addEmployee.fulfilled,(state,action)=>{
       state.isLoading = false;
-      state.data.push(action.data);
+      state.data.push(action.payload);
     }),
     builder.addCase(addEmployee.rejected,(state,action)=>{
       state.isLoading = false;
